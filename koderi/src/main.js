@@ -1,7 +1,12 @@
 import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App.vue'
+import VueRouter from 'vue-router'
 import * as firebase from 'firebase' 
+import Home from './components/Home'
+import Form from './components/forms/Form'
+import CVUpload from './components/forms/CVUpload'
+
 
 Vue.config.productionTip = false
 
@@ -15,6 +20,28 @@ var config = {
 };
 firebase.initializeApp(config);
 
+Vue.use(VueRouter)
+
 new Vue({
   render: h => h(App),
+  router: new VueRouter({
+    mode: 'history',
+    routes: [
+      { 
+        path: '/',
+        name: 'home',
+        component: Home 
+      },
+      { 
+        path: '/form',
+        name: 'form',
+        component: Form
+      },
+      {
+        path: '/cv',
+        name: 'cv',
+        component: CVUpload
+      }
+    ]
+  })
 }).$mount('#app')

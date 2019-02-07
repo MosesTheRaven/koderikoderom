@@ -1,33 +1,26 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-toolbar>
-
+    <!-- <v-toolbar app>kek</v-toolbar> -->
     <v-content>
-      <HelloWorld/>
+      <v-container fill-height fluid>
+        <v-layout align-center justify-center  fill-height>
+          <v-flex xs12 sm6 offset-sm3>
+            <router-view></router-view>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </v-content>
+    <Footer></Footer>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import Footer from './components/navigation/Footer'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  components:{
+    Footer
   },
   data () {
     return {
@@ -35,4 +28,5 @@ export default {
     }
   }
 }
+
 </script>
