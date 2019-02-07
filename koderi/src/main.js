@@ -6,6 +6,7 @@ import * as firebase from 'firebase'
 import Home from './components/Home'
 import Form from './components/forms/Form'
 import CVUpload from './components/forms/CVUpload'
+import ONas from './components/content/ONas'
 
 
 Vue.config.productionTip = false
@@ -41,7 +42,13 @@ new Vue({
         path: '/cv',
         name: 'cv',
         component: CVUpload
+      },
+      {
+        path: '/o-nas',
+        name: 'onas',
+        component: ONas
       }
+      
     ]
   })
 }).$mount('#app')

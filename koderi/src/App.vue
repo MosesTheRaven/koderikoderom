@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <!-- <v-toolbar app>kek</v-toolbar> -->
+    <Header/>
     <v-content>
       <v-container fill-height fluid>
         <v-layout align-center justify-center  fill-height>
@@ -10,16 +10,18 @@
         </v-layout>
       </v-container>
     </v-content>
-    <Footer></Footer>
+    <Footer/>
   </v-app>
 </template>
 
 <script>
+import Header from './components/navigation/Header'
 import Footer from './components/navigation/Footer'
 
 export default {
   name: 'App',
   components:{
+    Header,
     Footer
   },
   data () {
