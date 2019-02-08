@@ -7,6 +7,7 @@ import Home from './components/Home'
 import Form from './components/forms/Form'
 import CVUpload from './components/forms/CVUpload'
 import ONas from './components/content/ONas'
+import ThankYou from './components/content/ThankYou'
 
 
 Vue.config.productionTip = false
@@ -26,7 +27,6 @@ Vue.use(VueRouter)
 new Vue({
   render: h => h(App),
   router: new VueRouter({
-    mode: 'history',
     routes: [
       { 
         path: '/',
@@ -47,6 +47,11 @@ new Vue({
         path: '/o-nas',
         name: 'onas',
         component: ONas
+      },
+      {
+        path: 'dakujeme',
+        name: 'thankyou',
+        component: ThankYou
       }
       
     ]

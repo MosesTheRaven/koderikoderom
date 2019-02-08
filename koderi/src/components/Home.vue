@@ -10,6 +10,11 @@
         <router-link :to="{name:'form'}">link to form</router-link>
       </v-list-tile-content>
     </v-list-tile>
+    <v-list-tile>
+      <v-list-tile-content>
+        <router-link :to="{name:'thankyou'}">link to thank u</router-link>
+      </v-list-tile-content>
+    </v-list-tile>
   </v-list>
 </template>
 
