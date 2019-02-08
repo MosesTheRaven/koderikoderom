@@ -13,57 +13,51 @@
                 <v-layout row>
                     <v-chip label 
                         v-for="(type, index) in programmerEnums.type" :key="index"
-                        :selected="programmer.selectedProgrammerTypes.includes(type)" 
-                        @click="processItemInArray(programmer.selectedProgrammerTypes, type)"
+                        :selected="programmer.selectedProgrammerTypes.includes(index)" 
+                        @click="processItemInArray(programmer.selectedProgrammerTypes, index)"
                     >
-                        {{type}}
+                        {{type}} 
                     </v-chip>
                 </v-layout>
-                <!-- <p>{{programmer.selectedProgrammerTypes}}</p> -->
                 
                 <p class="headline">Ktoré technológie sú vám blízke?</p>
                 <v-layout row wrap>
                     <v-chip label 
                         v-for="(technology, index) in programmerEnums.availableTechnologies" :key="index"  
-                        @click="processItemInArray(programmer.selectedTechnologies, technology)"
-                        :selected="programmer.selectedTechnologies.includes(technology)"
+                        @click="processItemInArray(programmer.selectedTechnologies, index)"
+                        :selected="programmer.selectedTechnologies.includes(index)"
                     >
                         {{technology}}
                     </v-chip>
                 </v-layout>
-                <!-- <p>{{programmer.selectedTechnologies}}</p> -->
                 
-                <div v-if="programmer.selectedTechnologies.includes('Java')">
+                <!-- 5 = Java in Java enums -->
+                <div v-if="programmer.selectedTechnologies.includes(5)"> 
                     <p class="headline">Aký Java framework používate?</p>
                     <v-layout  row wrap>
                         <v-chip label v-for="(javaTechnology, index) in programmerEnums.availableJavaTechnologies" :key="index"  
-                        @click="processItemInArray(programmer.selectedJavaTechnologies, javaTechnology)"
-                        :selected="programmer.selectedJavaTechnologies.includes(javaTechnology)"
+                        @click="processItemInArray(programmer.selectedJavaTechnologies, index)"
+                        :selected="programmer.selectedJavaTechnologies.includes(index)"
                         >{{javaTechnology}}</v-chip>
                     </v-layout>
-                    <!-- <p>{{programmer.selectedJavaTechnologies}}</p> -->
                 </div>
-                
-                <div v-if="programmer.selectedTechnologies.includes('Javascript')">
+
+                <!-- 6 = Java in Java enums -->
+                <div v-if="programmer.selectedTechnologies.includes(6)">
                     <p class="headline">Aký Javascript framework používate?</p>
                     <v-layout  row wrap>
                         <v-chip label v-for="(javaScriptTechnology, index) in programmerEnums.availableJavascriptTechnologies" :key="index"  
-                        @click="processItemInArray(programmer.selectedJavascriptTechnologies, javaScriptTechnology)"
-                        :selected="programmer.selectedJavascriptTechnologies.includes(javaScriptTechnology)"
+                        @click="processItemInArray(programmer.selectedJavascriptTechnologies, index)"
+                        :selected="programmer.selectedJavascriptTechnologies.includes(index)"
                         >{{javaScriptTechnology}}</v-chip>
                     </v-layout>
-                    <!-- <p>{{programmer.selectedJavascriptTechnologies}}</p> -->
                 </div>
                 
                 <p class="headline">Koľko rokov praxe máte?</p>
                 <v-layout row wrap>
                     <v-chip v-for="(prax, index) in programmerEnums.praxis" :key="index"
-                      :selected="programmer.prax===prax.label" label @click="programmer.prax = prax.label">{{prax.label}}</v-chip>
-                    <!-- <v-chip :selected="programmer.prax==='1 - 2 roky'" label @click="programmer.prax = '1 - 2 roky'">1 - 2 roky</v-chip>
-                    <v-chip :selected="programmer.prax==='3 - 4 roky'" label @click="programmer.prax = '3 - 4 roky'">3 - 4 roky</v-chip>
-                    <v-chip :selected="programmer.prax==='5 a viac rokov'" label @click="programmer.prax = '5 a viac rokov'">5 a viac rokov</v-chip> -->
+                      :selected="programmer.prax===index" label @click="programmer.prax = index">{{prax.label}}</v-chip>
                 </v-layout>
-                <!-- <p>{{programmer.prax}}</p> -->
             </v-form>
         </v-card-text>
       </v-window-item>
@@ -206,8 +200,7 @@ export default {
                 // dorobit rozhodovanie
             } 
             else{
-                console.log(this.programmer)
-                // firebase.database().ref('programatori').push(programmer)
+              firebase.database().ref('programmers').push(this.programmer)
             }
         }
     },
