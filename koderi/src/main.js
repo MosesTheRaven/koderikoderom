@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import './plugins/vuetify'
+import * as firebase from 'firebase' 
+import './stylus/main.styl'
+
 import App from './App.vue'
 import VueRouter from 'vue-router'
-import * as firebase from 'firebase' 
 import Home from './components/Home'
 import Form from './components/forms/Form'
 import CVUpload from './components/forms/CVUpload'
 import ONas from './components/content/ONas'
 import ThankYou from './components/content/ThankYou'
+
 
 
 Vue.config.productionTip = false

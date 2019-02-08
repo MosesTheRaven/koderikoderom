@@ -32,3 +32,12 @@ export default {
 }
 
 </script>
+
+<style>
+body{
+  background-color: rgb(245, 245, 245)
+}
+.v-card{
+  background-color: rgb(245, 245, 245) !important
+}
+</style>

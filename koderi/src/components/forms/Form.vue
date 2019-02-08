@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card elevation="0">
     <v-card-title class="title font-weight-regular justify-space-between">
       <span class="headline"><strong>Krok {{step}}</strong>/3</span>
     </v-card-title>
@@ -10,8 +10,8 @@
               <p>V prvom kroku je dôležité zistiť to, aký kóder ste a koľko reálnych skúseností máte.</p>
               
                   <p class="headline">Aký typ programátora ste?</p>
-                  <v-layout row>
-                      <v-chip label 
+                  <v-layout row class="mb-4">
+                      <v-chip label color="white" 
                           v-for="(type, index) in programmerEnums.type" :key="index"
                           :selected="programmer.selectedProgrammerTypes.includes(index)" 
                           @click="processItemInArray(programmer.selectedProgrammerTypes, index)"
@@ -21,8 +21,8 @@
                   </v-layout>
                   
                   <p class="headline">Ktoré technológie sú vám blízke?</p>
-                  <v-layout row wrap>
-                      <v-chip label 
+                  <v-layout row wrap class="mb-4">
+                      <v-chip label color="white"
                           v-for="(technology, index) in programmerEnums.availableTechnologies" :key="index"  
                           @click="processItemInArray(programmer.selectedTechnologies, index)"
                           :selected="programmer.selectedTechnologies.includes(index)"
@@ -34,10 +34,11 @@
                   <!-- 5 = Java in Java enums -->
                   <div v-if="programmer.selectedTechnologies.includes(5)"> 
                       <p class="headline">Aký Java framework používate?</p>
-                      <v-layout  row wrap>
-                          <v-chip label v-for="(javaTechnology, index) in programmerEnums.availableJavaTechnologies" :key="index"  
-                          @click="processItemInArray(programmer.selectedJavaTechnologies, index)"
-                          :selected="programmer.selectedJavaTechnologies.includes(index)"
+                      <v-layout  row wrap class="mb-4">
+                          <v-chip label color="white"
+                            v-for="(javaTechnology, index) in programmerEnums.availableJavaTechnologies" :key="index"  
+                            @click="processItemInArray(programmer.selectedJavaTechnologies, index)"
+                            :selected="programmer.selectedJavaTechnologies.includes(index)"
                           >{{javaTechnology}}</v-chip>
                       </v-layout>
                   </div>
@@ -45,8 +46,9 @@
                   <!-- 6 = Java in Java enums -->
                   <div v-if="programmer.selectedTechnologies.includes(6)">
                       <p class="headline">Aký Javascript framework používate?</p>
-                      <v-layout  row wrap>
-                          <v-chip label v-for="(javaScriptTechnology, index) in programmerEnums.availableJavascriptTechnologies" :key="index"  
+                      <v-layout  row wrap class="mb-4">
+                          <v-chip label color="white" 
+                          v-for="(javaScriptTechnology, index) in programmerEnums.availableJavascriptTechnologies" :key="index"  
                           @click="processItemInArray(programmer.selectedJavascriptTechnologies, index)"
                           :selected="programmer.selectedJavascriptTechnologies.includes(index)"
                           >{{javaScriptTechnology}}</v-chip>
@@ -54,8 +56,9 @@
                   </div>
                   
                   <p class="headline">Koľko rokov praxe máte?</p>
-                  <v-layout row wrap>
-                      <v-chip v-for="(prax, index) in programmerEnums.praxis" :key="index"
+                  <v-layout row wrap class="mb-4">
+                      <v-chip color="white"
+                        v-for="(prax, index) in programmerEnums.praxis" :key="index"
                         :selected="programmer.prax===index" label @click="programmer.prax = index">{{prax.label}}</v-chip>
                   </v-layout>
           </v-card-text>
@@ -66,21 +69,21 @@
               <p>V druhom kroku uveďte doplňujúce informácie.</p>
 
               <p class="headline">Viedli ste niekedy tím ľudí?</p>
-              <v-layout>
-                  <v-chip label :selected="programmer.isTeamLeader" @click="programmer.isTeamLeader = true">Áno</v-chip>
-                  <v-chip label :selected="!programmer.isTeamLeader && programmer.isTeamLeader != null" @click="programmer.isTeamLeader = false">Nie</v-chip>
+              <v-layout class="mb-4">
+                  <v-chip label color="white" :selected="programmer.isTeamLeader" @click="programmer.isTeamLeader = true">Áno</v-chip>
+                  <v-chip label color="white" :selected="!programmer.isTeamLeader && programmer.isTeamLeader != null" @click="programmer.isTeamLeader = false">Nie</v-chip>
               </v-layout>
               
               <p class="headline">Máte skúsenosti s konkrétnou doménou? (Bankovníctvo, Medicína, Telekomunikácie...)</p>
-              <v-layout>
-                  <v-chip label :selected="programmer.workedDomain" @click="programmer.workedDomain = true">Áno</v-chip>
-                  <v-chip label :selected="!programmer.workedDomain && programmer.workedDomain != null" @click="programmer.workedDomain = false">Nie</v-chip>
+              <v-layout class="mb-4">
+                  <v-chip label color="white" :selected="programmer.workedDomain" @click="programmer.workedDomain = true">Áno</v-chip>
+                  <v-chip label color="white" :selected="!programmer.workedDomain && programmer.workedDomain != null" @click="programmer.workedDomain = false">Nie</v-chip>
               </v-layout>
               
               <p class="headline">Pracovali ste ako softvérový architekt?</p>
-              <v-layout>
-                  <v-chip label :selected="programmer.isArchitect" @click="programmer.isArchitect = true">Áno</v-chip>
-                  <v-chip label :selected="!programmer.isArchitect && programmer.isArchitect != null" @click="programmer.isArchitect = false">Nie</v-chip>
+              <v-layout class="mb-4">
+                  <v-chip label color="white" :selected="programmer.isArchitect" @click="programmer.isArchitect = true">Áno</v-chip>
+                  <v-chip label color="white" :selected="!programmer.isArchitect && programmer.isArchitect != null" @click="programmer.isArchitect = false">Nie</v-chip>
               </v-layout>
           </v-card-text>
         </v-window-item>
@@ -88,16 +91,11 @@
         <v-window-item :value="3">
           <v-card-text>
               <p>Nakoniec nám nechajte svoje meno a e-mail, na ktorý Vám pošleme výsledok formulára.</p>
-              <v-layout row justify-space-between wrap>
-                  <v-flex sm6>
-                      <v-text-field required v-model="programmer.name" label="Meno" :rules="[rules.required]" placeholder="Jožko" outline/>
-                  </v-flex>
-                  <v-flex sm6>
-                      <v-text-field required v-model="programmer.surname" label="Priezvisko" :rules="[rules.required]" placeholder="Mrkvička" outline/>
-                  </v-flex>
-              </v-layout>
-              <v-text-field required v-model="programmer.email" :rules="[rules.required, rules.email]" label="E-mail"></v-text-field>
-          
+              <v-flex lg4 class="mb-4">
+                <v-text-field class="mb-2" required v-model="programmer.name" label="Meno" :rules="[rules.required]" placeholder="Jožko" />
+                <v-text-field class="mb-2" required v-model="programmer.surname" label="Priezvisko" :rules="[rules.required]" placeholder="Mrkvička"/>
+                <v-text-field  required v-model="programmer.email" :rules="[rules.required, rules.email]" label="E-mail" placeholder="jozko@mrkvicka.sk"></v-text-field>
+              </v-flex>
               <div id="zasadyDiv">
                   <p><strong>I. Súhlas so spracovaním osobných údajov</strong><br>
                   Spoločnosť Objectify s.r.o, so sídlom Martinengova 4881/36 811 02 Bratislava – Staré Mesto, IČO: 47975890 informuje, že osobné údaje spracúva podľa §10 zákona č. 122/2013 Z. z. o ochrane osobných údajov a o zmene a doplnení niektorých zákonov v rozsahu meno, priezvisko, adresa, miesto podnikania, IČO, bankové spojenie, dátum narodenia, e-mailová adresa, telefónne číslo, pracovné skúsenosti a ďalších údajov, ktoré záujemca dobrovoľne poskytne.</p>
@@ -127,9 +125,9 @@
     </v-form>
     <v-divider></v-divider>
     <v-card-actions>
-      <v-btn :disabled="step === 1" flat @click="step--">Back</v-btn>
-      <v-spacer></v-spacer>
-      <v-btn color="primary" depressed @click="processStep()">Next</v-btn>
+      <v-btn depressed :disabled="step === 1" flat @click="step--">Späť</v-btn>
+      <!-- <v-spacer></v-spacer> -->
+      <v-btn color="primary" depressed @click="processStep()">{{step==3 ? 'Odoslať' : 'Ďalej' }}</v-btn>
     </v-card-actions>
     <v-dialog v-model="dialog" hide-overlay persistent width="300">
       <v-card color="primary" dark>
