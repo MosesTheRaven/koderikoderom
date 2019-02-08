@@ -12,57 +12,58 @@
                 <p class="headline">Aký typ programátora ste?</p>
                 <v-layout row>
                     <v-chip label 
-                        v-for="(type, index) in availableProgrammerTypes" :key="index"
-                        :selected="selectedProgrammerTypes.includes(type)" 
-                        @click="processItemInArray(selectedProgrammerTypes, type)"
+                        v-for="(type, index) in programmerEnums.type" :key="index"
+                        :selected="programmer.selectedProgrammerTypes.includes(type)" 
+                        @click="processItemInArray(programmer.selectedProgrammerTypes, type)"
                     >
                         {{type}}
                     </v-chip>
                 </v-layout>
-                <p>{{selectedProgrammerTypes}}</p>
+                <!-- <p>{{programmer.selectedProgrammerTypes}}</p> -->
                 
                 <p class="headline">Ktoré technológie sú vám blízke?</p>
                 <v-layout row wrap>
                     <v-chip label 
-                        v-for="(technology, index) in availableTechnologies" :key="index"  
-                        @click="processItemInArray(selectedTechnologies, technology)"
-                        :selected="selectedTechnologies.includes(technology)"
+                        v-for="(technology, index) in programmerEnums.availableTechnologies" :key="index"  
+                        @click="processItemInArray(programmer.selectedTechnologies, technology)"
+                        :selected="programmer.selectedTechnologies.includes(technology)"
                     >
                         {{technology}}
                     </v-chip>
                 </v-layout>
-                <p>{{selectedTechnologies}}</p>
+                <!-- <p>{{programmer.selectedTechnologies}}</p> -->
                 
-                <div v-if="selectedTechnologies.includes('Java')">
+                <div v-if="programmer.selectedTechnologies.includes('Java')">
                     <p class="headline">Aký Java framework používate?</p>
                     <v-layout  row wrap>
-                        <v-chip label v-for="(javaTechnology, index) in availableJavaTechnologies" :key="index"  
-                        @click="processItemInArray(selectedJavaTechnologies, javaTechnology)"
-                        :selected="selectedJavaTechnologies.includes(javaTechnology)"
+                        <v-chip label v-for="(javaTechnology, index) in programmerEnums.availableJavaTechnologies" :key="index"  
+                        @click="processItemInArray(programmer.selectedJavaTechnologies, javaTechnology)"
+                        :selected="programmer.selectedJavaTechnologies.includes(javaTechnology)"
                         >{{javaTechnology}}</v-chip>
                     </v-layout>
-                    <p>{{selectedJavaTechnologies}}</p>
+                    <!-- <p>{{programmer.selectedJavaTechnologies}}</p> -->
                 </div>
                 
-                <div v-if="selectedTechnologies.includes('Javascript')">
+                <div v-if="programmer.selectedTechnologies.includes('Javascript')">
                     <p class="headline">Aký Javascript framework používate?</p>
                     <v-layout  row wrap>
-                        <v-chip label v-for="(javaScriptTechnology, index) in availableJavascriptTechnologies" :key="index"  
-                        @click="processItemInArray(selectedJavascriptTechnologies, javaScriptTechnology)"
-                        :selected="selectedJavascriptTechnologies.includes(javaScriptTechnology)"
+                        <v-chip label v-for="(javaScriptTechnology, index) in programmerEnums.availableJavascriptTechnologies" :key="index"  
+                        @click="processItemInArray(programmer.selectedJavascriptTechnologies, javaScriptTechnology)"
+                        :selected="programmer.selectedJavascriptTechnologies.includes(javaScriptTechnology)"
                         >{{javaScriptTechnology}}</v-chip>
                     </v-layout>
-                    <p>{{selectedJavascriptTechnologies}}</p>
+                    <!-- <p>{{programmer.selectedJavascriptTechnologies}}</p> -->
                 </div>
                 
                 <p class="headline">Koľko rokov praxe máte?</p>
                 <v-layout row wrap>
-                    <v-chip :selected="prax==='Menej ako 1 rok'" label @click="prax = 'Menej ako 1 rok'">Menej ako 1 rok</v-chip>
-                    <v-chip :selected="prax==='1 - 2 roky'" label @click="prax = '1 - 2 roky'">1 - 2 roky</v-chip>
-                    <v-chip :selected="prax==='3 - 4 roky'" label @click="prax = '3 - 4 roky'">3 - 4 roky</v-chip>
-                    <v-chip :selected="prax==='5 a viac rokov'" label @click="prax = '5 a viac rokov'">5 a viac rokov</v-chip>
+                    <v-chip v-for="(prax, index) in programmerEnums.praxis" :key="index"
+                      :selected="programmer.prax===prax.label" label @click="programmer.prax = prax.label">{{prax.label}}</v-chip>
+                    <!-- <v-chip :selected="programmer.prax==='1 - 2 roky'" label @click="programmer.prax = '1 - 2 roky'">1 - 2 roky</v-chip>
+                    <v-chip :selected="programmer.prax==='3 - 4 roky'" label @click="programmer.prax = '3 - 4 roky'">3 - 4 roky</v-chip>
+                    <v-chip :selected="programmer.prax==='5 a viac rokov'" label @click="programmer.prax = '5 a viac rokov'">5 a viac rokov</v-chip> -->
                 </v-layout>
-                <p>{{prax}}</p>
+                <!-- <p>{{programmer.prax}}</p> -->
             </v-form>
         </v-card-text>
       </v-window-item>
@@ -73,22 +74,21 @@
 
             <p class="headline">Viedli ste niekedy tím ľudí?</p>
             <v-layout>
-                <v-chip label :selected="isTeamLeader" @click="isTeamLeader = true">Áno</v-chip>
-                <v-chip label :selected="!isTeamLeader && isTeamLeader != null" @click="isTeamLeader = false">Nie</v-chip>
+                <v-chip label :selected="programmer.isTeamLeader" @click="programmer.isTeamLeader = true">Áno</v-chip>
+                <v-chip label :selected="!programmer.isTeamLeader && programmer.isTeamLeader != null" @click="programmer.isTeamLeader = false">Nie</v-chip>
             </v-layout>
             
             <p class="headline">Máte skúsenosti s konkrétnou doménou? (Bankovníctvo, Medicína, Telekomunikácie...)</p>
             <v-layout>
-                <v-chip label :selected="workedDomain" @click="workedDomain = true">Áno</v-chip>
-                <v-chip label :selected="!workedDomain && workedDomain != null" @click="workedDomain = false">Nie</v-chip>
+                <v-chip label :selected="programmer.workedDomain" @click="programmer.workedDomain = true">Áno</v-chip>
+                <v-chip label :selected="!programmer.workedDomain && programmer.workedDomain != null" @click="programmer.workedDomain = false">Nie</v-chip>
             </v-layout>
             
             <p class="headline">Pracovali ste ako softvérový architekt?</p>
             <v-layout>
-                <v-chip label :selected="isArchitect" @click="isArchitect = true">Áno</v-chip>
-                <v-chip label :selected="!isArchitect && isArchitect != null" @click="isArchitect = false">Nie</v-chip>
+                <v-chip label :selected="programmer.isArchitect" @click="programmer.isArchitect = true">Áno</v-chip>
+                <v-chip label :selected="!programmer.isArchitect && programmer.isArchitect != null" @click="programmer.isArchitect = false">Nie</v-chip>
             </v-layout>
-            
         </v-card-text>
       </v-window-item>
 
@@ -97,13 +97,13 @@
             <p>Nakoniec nám nechajte svoje meno a e-mail, na ktorý Vám pošleme výsledok formulára.</p>
             <v-layout row justify-space-between wrap>
                 <v-flex sm6>
-                    <v-text-field v-model="name" label="Meno" :rules="[rules.required]" placeholder="Jožko" outline/>
+                    <v-text-field v-model="programmer.name" label="Meno" :rules="[rules.required]" placeholder="Jožko" outline/>
                 </v-flex>
                 <v-flex sm6>
-                    <v-text-field v-model="surname" label="Priezvisko" :rules="[rules.required]" placeholder="Mrkvička" outline/>
+                    <v-text-field v-model="programmer.surname" label="Priezvisko" :rules="[rules.required]" placeholder="Mrkvička" outline/>
                 </v-flex>
             </v-layout>
-            <v-text-field v-model="email" :rules="[rules.required, rules.email]" label="E-mail"></v-text-field>
+            <v-text-field v-model="programmer.email" :rules="[rules.required, rules.email]" label="E-mail"></v-text-field>
         
             <div id="zasadyDiv">
                 <p><strong>I. Súhlas so spracovaním osobných údajov</strong><br>
@@ -127,7 +127,7 @@
             </div>
 
             <v-checkbox :class="suhlas ? '' : suhlasFarba" v-model="suhlas" label="Súhlasím so spracovaním osobných údajov"></v-checkbox>
-            <p>{{suhlas}}</p>
+            <!-- <p>{{suhlas}}</p> -->
         </v-card-text>
       </v-window-item>
     </v-window>
@@ -157,56 +157,33 @@ export default {
 
             return date.getDate() + '.' + (date.getMonth()+1) + '.' + date.getFullYear()
         }
-    },  
+    },
+    created() {
+      firebase.database().ref('enums/programmer')
+      .once('value', (dataSnapshot) => {
+        this.programmerEnums = dataSnapshot.val()
+      })
+    },
     data: () => ({
+      // used for monitoring steps in window
       step: 1,
-      availableProgrammerTypes:[
-        'Frontend',
-        'Backend',
-        'Fullstack'
-      ],
-      availableTechnologies : [
-        'ABAB',
-        'C#',
-        'C++',
-        '.NET',
-        'Haskell',
-        'Java',
-        'Javascript',
-        'Perl',
-        'PHP',
-        'PL/SQL',
-        'Python',
-        'Ruby',
-        'Rust',
-        'Scala',
-        'Swift'
-      ],
-      availableJavaTechnologies : [
-        'GWT',
-        'JPA (Hibernate)',
-        'JSF',
-        'Spring',
-        'Vaadin',
-        'Wicket'
-      ],
-      availableJavascriptTechnologies: [
-        'Angular 1',
-        'Angular 2+',
-        'React',
-        'Vue'
-      ],
-      selectedJavaTechnologies : [],
-      selectedProgrammerTypes : [],
-      selectedTechnologies : [],
-      selectedJavascriptTechnologies : [],
-      prax : null,
-      isTeamLeader : null,
-      workedDomain : null,
-      isArchitect : null,
-      name : null,
-      surname : null,
-      email : null,
+    
+      programmer : {
+        selectedJavaTechnologies : [],
+        selectedProgrammerTypes : [],
+        selectedTechnologies : [],
+        selectedJavascriptTechnologies : [],
+        prax : null,
+        isTeamLeader : null,
+        workedDomain : null,
+        isArchitect : null,
+        name : null,
+        surname : null,
+        email : null,
+      },
+      // loaded at creation
+      programmerEnums : {  
+      },
       suhlas : null,
       rules: {
           required: value => !!value || 'Required.',
@@ -224,26 +201,13 @@ export default {
         },
         processStep: function(){
             if (this.step < 3) this.step++;
-            else if(!this.suhlas && this.name != '' && this.email != ''){
+            else if(!this.suhlas && this.programmer.name != '' && this.programmer.email != ''){
                 this.suhlasFarba = 'text-red'
                 // dorobit rozhodovanie
             } 
             else{
-                let programmer = {
-                    'name' : this.name,
-                    'surname' : this.surname,
-                    'email' : this.email,
-                    'selectedProgrammerTypes' : this.selectedProgrammerTypes,
-                    'selectedTechnologies' : this.selectedTechnologies,
-                    'selectedJavaTechnologies' : this.selectedJavaTechnologies,
-                    'selectedJavascriptTechnologies' : this.selectedJavascriptTechnologies,
-                    'prax' : this.prax,
-                    'isTeamLeader' : this.isTeamLeader,
-                    'workedDomain' : this.workedDomain,
-                    'isArchitect' : this.isArchitect,
-                }
-                firebase.database().ref('programatori').push(programmer)
-
+                console.log(this.programmer)
+                // firebase.database().ref('programatori').push(programmer)
             }
         }
     },
