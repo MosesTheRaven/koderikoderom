@@ -10,7 +10,7 @@ import Form from './components/forms/Form'
 import CVUpload from './components/forms/CVUpload'
 import ONas from './components/content/ONas'
 import ThankYou from './components/content/ThankYou'
-
+import Admin from './components/content/admin/Admin'
 
 
 Vue.config.productionTip = false
@@ -48,15 +48,24 @@ new Vue({
       },
       {
         path: '/o-nas',
-        name: 'onas',
+        name: 'o-nas',
         component: ONas
+      },
+      {
+        path: '/zasady',
+        name: 'zasady',
+        component: ThankYou
       },
       {
         path: 'dakujeme',
         name: 'thankyou',
         component: ThankYou
-      }
-      
+      },
+      {
+        path : 'koderi-admin',
+        name: 'admin',
+        component : Admin
+      },
     ]
   })
 }).$mount('#app')

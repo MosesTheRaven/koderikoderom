@@ -1,16 +1,18 @@
 <template>
   <nav class="header">
     <div class="header-container">
-      <p class="logo-title">
-        KOD3RI<br>
-        K0DEROM    
-      </p>
+      <router-link :to="{name : 'home'}">
+        <p class="logo-title">KOD3RI<br>K0DEROM</p>
+      </router-link>
       <ul>
         <li>
           <router-link :to="{name: 'o-nas'}">O dotazníku</router-link>
         </li>
         <li>
           <router-link :to="{name: 'zasady'}">Zásady ochrany súkromia</router-link>
+        </li>
+        <li>
+          <router-link :to="{name: 'admin'}">Admin</router-link>
         </li>
       </ul>
     </div>  
@@ -56,6 +58,8 @@ export default {
   }
   ul li a{
     color : #777777;
+  }
+  a{
     text-decoration: none;
   }
 </style>

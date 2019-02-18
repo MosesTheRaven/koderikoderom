@@ -30,9 +30,7 @@
                             {{technology}}
                         </v-chip>
                       </v-flex>
-                        
                     </v-layout>
-                    
                     <!-- 5 = Java in Java enums -->
                     <div v-if="programmer.selectedTechnologies.includes(5)"> 
                         <p class="headline-question">Aký Java framework používate?</p>
@@ -107,7 +105,7 @@
                     <v-text-field class="mb-2" required v-model="programmer.surname" label="Priezvisko" :rules="[rules.required]" placeholder="Mrkvička"/>
                     <v-text-field  required v-model="programmer.email" :rules="[rules.required, rules.email]" label="E-mail" placeholder="jozko@mrkvicka.sk"></v-text-field>
                   </v-flex>
-                  <div id="zasadyDiv">
+                  <div id="cd koderi">
                     <p><strong>I. Súhlas so spracovaním osobných údajov</strong><br>Spoločnosť Objectify s.r.o, so sídlom Martinengova 4881/36 811 02 Bratislava – Staré Mesto, IČO: 47975890 informuje, že osobné údaje spracúva podľa §10 zákona č. 122/2013 Z. z. o ochrane osobných údajov a o zmene a doplnení niektorých zákonov v rozsahu meno, priezvisko, adresa, miesto podnikania, IČO, bankové spojenie, dátum narodenia, e-mailová adresa, telefónne číslo, pracovné skúsenosti a ďalších údajov, ktoré záujemca dobrovoľne poskytne.</p>
                     <p>Záujemca odoslaním svojej žiadosti, ktorej súčasťou je aj tento súhlas, týmto dáva spoločnosti Objectify súhlas aby do {{date}} spracúvala jeho osobné údaje vo vyššie uvedenom rozsahu, tieto následne poskytovala, sprístupňovala a cezhranične prenášala právnickým a fyzickým osobám podľa potreby spoločnosti. Záujemca má právo kedykoľvek svoj súhlas odvolať, a to doručením písomného odvolania svojho súhlasu na adresu spoločnosti.</p>
                     <p>Účelom spracúvania osobných údajov záujemcu je zanalyzovanie jeho skúseností a praxe a následnom vyhodnotení jeho predpokladanej mzdy.</p>
