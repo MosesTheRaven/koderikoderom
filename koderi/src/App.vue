@@ -2,7 +2,7 @@
   <v-app>
     <Header/>
     <v-content>
-      <v-container fill-height fluid>
+      <v-container fill-height>
         <v-layout align-center justify-center  fill-height>
           <v-flex xs12>
             <router-view></router-view>
@@ -39,5 +39,8 @@ body{
 }
 .v-card{
   background-color: rgb(245, 245, 245) !important
+}
+.container{
+  max-width : 1140px
 }
 </style>

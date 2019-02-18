@@ -1,29 +1,61 @@
 <template>
-  <v-toolbar>
-    <v-toolbar-title class="toolbar-title" @click="$router.push({name:'home'})">
-      Koderi Koderom
-    </v-toolbar-title>
-    <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down">
-      <p>
-        <router-link :to="{name: 'o-nas'}">Zistite o tomto dotazníku viac</router-link> a <a href="https://www.facebook.com/K%C3%B3deri-K%C3%B3derom-1243492685805038/">sledujte nás na Facebooku</a>.
+  <nav class="header">
+    <div class="header-container">
+      <p class="logo-title">
+        KOD3RI<br>
+        K0DEROM    
       </p>
-    </v-toolbar-items>
-  </v-toolbar>
+      <ul>
+        <li>
+          <router-link :to="{name: 'o-nas'}">O dotazníku</router-link>
+        </li>
+        <li>
+          <router-link :to="{name: 'zasady'}">Zásady ochrany súkromia</router-link>
+        </li>
+      </ul>
+    </div>  
+  </nav>
 </template>
 
 <script>
 export default {
     name: 'Header',
     data: ()=> ({
-      width : 181,
-      height : 40
     })
 }
 </script>
-
-<style>
-.toolbar-title{
-  cursor : pointer;
-}
+<style scoped>
+  .logo-title{
+    font-family: 'Roboto Mono', monospace;
+    color : #222222;
+    font-size : 19px;
+    line-height: 100%;
+    font-weight: 900;
+  }
+  .header{
+    padding-top : 72px;
+    display: flex;
+    justify-content: center;
+  }
+  .header-container{
+    display: flex;
+    width : 1140px;
+    height: 190px;
+    justify-content: space-between;
+    padding : 0 42px;
+  }
+  ul{
+    font-family: 'Roboto Mono', monospace;
+    font-size : 19px;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none; 
+  }
+  ul li{
+    padding: 15px;
+  }
+  ul li a{
+    color : #777777;
+    text-decoration: none;
+  }
 </style>
