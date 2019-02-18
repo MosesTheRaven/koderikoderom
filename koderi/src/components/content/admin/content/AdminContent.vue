@@ -1,20 +1,49 @@
 <template>
   <div>
+    <v-card>
+      <v-card-title>
+        {{tableName == "" ? 'Vyber si odkiaľ majú programátori byť' : tableName}}
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          label="Search"
+          single-line
+          hide-details
+          v-if="computedTableType=='form' || computedTableType=='cv'"
+        ></v-text-field>
+      </v-card-title>
+    </v-card>
     <v-data-table
-    :headers="headers"
-    :items="items"
+      :headers="headers"
+      :items="items"
+      :search="search"
+      v-if="computedTableType=='form'"
     >
-      <template slot="items" slot-scope="props">
+      <template  slot="items" slot-scope="props">
         <td>{{ props.item.name }}</td>
-        <td class="text-xs-right"><a :href="'mailto:' + props.item.email ">{{props.item.email}}</a></td>
-        <td class="text-xs-right">{{ props.item.typ }}</td>
-        <td class="text-xs-right">{{ props.item.technologies }}</td>
-        <td class="text-xs-right">{{ props.item.moretechnologies }}</td>
-        <td class="text-xs-right">{{ props.item.prax }}</td>
-        <td class="text-xs-right">{{ props.item.special }}</td>
+        <td class="text-xs-left"><a :href="'mailto:' + props.item.email ">{{props.item.email}}</a></td>
+        <td class="text-xs-left">{{ props.item.typ }}</td>
+        <td class="text-xs-left">{{ props.item.technologies }}</td>
+        <td class="text-xs-left">{{ props.item.moretechnologies }}</td>
+        <td class="text-xs-left">{{ props.item.prax }}</td>
+        <td class="text-xs-left">{{ props.item.special }}</td>
+      </template>
+
+      
+    </v-data-table>
+    <v-data-table 
+      :headers="headers" 
+      :items="items" 
+      :search="search"
+      v-if="computedTableType=='cv'"
+    >
+      <template  slot="items" slot-scope="props">
+        <td>{{props.item.name}}</td>
+        <td class="text-xs-left"><a :href="'mailto:' + props.item.email ">{{props.item.email}}</a></td>
+        <td><a  class="download-link" :href="props.item.cv" target="_blank" ><i class="fas fa-file-download"></i></a></td>
       </template>
     </v-data-table>
-    <v-btn @click="addPerson()"></v-btn>  
   </div>
 </template>
 <script>
@@ -24,9 +53,11 @@ export default {
   name: 'AdminContent',
   data:() => {
     return{
+      tableName : '',
+      search: '',
       headers : [],
       items : [],
-      computedTableType : 'form',
+      computedTableType : '',
       enums : {programmer : null}
     }
   },
@@ -38,30 +69,34 @@ export default {
     })
   },
   methods:{
-    addPerson: function(){
-      this.items.push({
-            name: 'Jozko Mrkvicka',
-            typ : 'frontend',
-            technologie : 'Java',
-            moretechnologies : 'Wicket',
-            prax : '3 - 4 roky',
-            special : 'worked domain'
-          })
+    setCVTableType : function(){
+      this.headers = [
+        { text: 'Meno', align: 'left', value: 'name'},
+        { text: 'email', align: 'left', value: 'email'},
+        { text: 'CV', align: 'left', value: 'cv'},
+      ]
+      this.items = []
+      let self = this
+      firebase.database().ref('cv')
+      .on('child_added', function(programmerDataSnapshot){
+        let retrievedProgrammer = programmerDataSnapshot.val()
+        let programmer = {
+          name : retrievedProgrammer.name + ' ' + retrievedProgrammer.surname,
+          email : retrievedProgrammer.email,
+          cv : retrievedProgrammer.cv
+        }
+        self.items.push(programmer)
+      })
     },
     setFormsTableType : function(){
       this.headers = [
-          {
-            text: 'Ludia z Formularu',
-            align: 'center',
-            sortable: true,
-            value: 'name'
-          },
-          { text: 'email', value: 'email' },
-          { text: 'typ', value: 'typ' },
-          { text: 'technologie', value: 'technologies' },
-          { text: 'rozsirenie technologii', value: 'moretechnologies' },
-          { text: 'prax', value: 'prax' },
-          { text: 'specialne vlastnosti', value: 'special' },
+          { text: 'Meno', align: 'left', value: 'name'},
+          { text: 'email', align: 'left', value: 'email'},
+          { text: 'typ', align: 'left', value: 'typ'},
+          { text: 'technologie', align: 'left', value: 'technologies'},
+          { text: 'rozsirenie technologii', align: 'left', value: 'moretechnologies' },
+          { text: 'prax', align: 'left', value: 'prax' },
+          { text: 'specialne vlastnosti', align: 'left', value: 'special'},
         ]
       this.items = []
       let self = this
@@ -71,7 +106,7 @@ export default {
         let programmer = {
           name : retrievedProgrammer.name + ' ' + retrievedProgrammer.surname,
           email : retrievedProgrammer.email,
-          prax : retrievedProgrammer.prax,
+          prax : self.enums.programmer['praxis'][retrievedProgrammer.prax].label,
           technologies : '',
           moretechnologies : '',
           special : '',
@@ -110,11 +145,21 @@ export default {
   watch:{
     tableType: function(newTableType){
       if(newTableType == 'form') {
+        this.computedTableType = 'form'
+        this.tableName = "Ľudia z Formulara"
         this.setFormsTableType()
       }
-      else console.log('nastala zmena - cv')
+      else {
+        this.computedTableType = 'cv'
+        this.tableName = "Ľudia z CV"
+        this.setCVTableType()
+      }
     }
   }
 }
-
 </script>
+<style>
+.download-link:hover{
+  color : #4297F9
+}
+</style>

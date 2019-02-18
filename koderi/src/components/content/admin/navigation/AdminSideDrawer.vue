@@ -21,7 +21,7 @@
         
         <v-list-tile @click="changeTable('form')">
           <v-list-tile-avatar>
-            <i class="far fa-file-invoice"></i>
+            <i class="far fa-file"></i>
           </v-list-tile-avatar>
           <v-list-tile-content>
             Ľudia z Formularu
@@ -30,7 +30,7 @@
 
         <v-list-tile @click="changeTable('cv')">
           <v-list-tile-avatar>
-            <i class="far fa-file-invoice"></i>
+            <i class="far fa-file"></i>
           </v-list-tile-avatar>
           <v-list-tile-content>
             Ľudia z CV
